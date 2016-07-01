@@ -262,6 +262,7 @@ EXPORT_SYMBOL(prandom_seed_full_state);
  */
 static void __prandom_reseed(bool late)
 {
+	int i;
 	unsigned long flags;
 	static bool latch = false;
 	static DEFINE_SPINLOCK(lock);
