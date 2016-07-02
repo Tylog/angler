@@ -5,17 +5,17 @@
 
 
 # Variables
-export ARCH=arm
-export SUBARCH=arm
-export CROSS_COMPILE=placholder
-THREAD="-j$(bc <<< "$(grep -c ^processor /proc/cpuinfo)+2""
+export ARCH=arm64
+export SUBARCH=arm64
+export CROSS_COMPILE=/home/frap129/tc/linaro/out/aarch64-linux-android-5.x-kernel/bin/aarch64-linux-android-
+THREAD=-j$(bc <<< $(grep -c ^processor /proc/cpuinfo)+2)
 DEFCONFIG="angler_defconfig"
 KROOT="$(pwd)"
 AK_DIR="$KROOT/anykernel"
 PATCH_DIR="$AK_DIR/patch"
 MODULES_DIR="$AK_DIR/modules"
 ZIP_MOVE="$KROOT/out"
-ZIMAGE_DIR="$KROOT/arch/arm/boot"
+ZIMAGE_DIR="$KROOT/arch/arm64/boot"
 REL="1"
 
 
@@ -34,7 +34,7 @@ function make_kernel {
 		echo
 		make $DEFCONFIG
 		make $THREAD
-		cp -vr $ZIMAGE_DIR/$zImage-dtb $AK_DIR/zImage
+		cp -vr $ZIMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
 }
 
 function make_modules {
