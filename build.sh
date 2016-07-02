@@ -35,7 +35,6 @@ function make_kernel {
 }
 
 function make_modules {
-		rm `echo $MODULES_DIR"/*"`
 		find $KROOT -name '*.ko' -exec cp -v {} $MODULES_DIR \;
 }
 
@@ -100,3 +99,6 @@ echo -e "${restore}"
 DIFF=$(($DATE_END - $DATE_START))
 echo "$(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 echo
+echo "Image size: $(du -h $IMAGE_DIR/Image.gz-dtb)"
+echo
+echo "Zip size: $(du -h $ZIP_DIR/*.zip)"
