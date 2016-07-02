@@ -7,7 +7,7 @@
 # Variables
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE=/home/frap129/tc/linaro/out/aarch64-linux-android-5.x-kernel/bin/aarch64-linux-android-
+export CROSS_COMPILE=/home/frap129/tc/linaro/out/aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android-
 THREAD=-j$(bc <<< $(grep -c ^processor /proc/cpuinfo)+2)
 DEFCONFIG="angler_defconfig"
 KROOT="$(pwd)"
