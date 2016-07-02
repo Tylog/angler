@@ -13,28 +13,25 @@ DEFCONFIG="angler_defconfig"
 KROOT="$(pwd)"
 AK_DIR="$KROOT/anykernel"
 PATCH_DIR="$AK_DIR/patch"
-MODULES_DIR="$AK_DIR/modules"
 ZIP_MOVE="$KROOT/out"
-ZIMAGE_DIR="$KROOT/arch/arm64/boot"
+IMAGE_DIR="$KROOT/arch/arm64/boot"
 REL="1"
 
 
 # Functions
 function clean_all {
 		cd $AK_DIR
-		rm -rf $MODULES_DIR/*
-		rm -rf zImage-dtb
-		rm -rf zImage
+		rm -rf Image.gz-dtb
 		cd $KROOT
 		echo
 		make mrproper
 }
 
 function make_kernel {
-		echo
+		clear
 		make $DEFCONFIG
 		make $THREAD
-		cp -vr $ZIMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
+		cp -vr $IMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
 }
 
 function make_modules {
@@ -52,6 +49,11 @@ function make_zip {
 		cd $KERNEL_DIR
 }
 
+# Allow functions to be run through arguments
+if [ -n "$1" ]; then
+  $1
+  exit 0;
+fi;
 
 while read -p "Clean before build (y/n)? " cchoice
 do
