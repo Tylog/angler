@@ -30,7 +30,7 @@ function clean_all {
 function make_kernel {
 		clear
 		make $DEFCONFIG
-		make $THREAD
+		if ! make $THREAD; then exit 1; fi;
 		cp -vr $IMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
 }
 
