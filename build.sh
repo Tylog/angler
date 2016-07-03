@@ -7,7 +7,7 @@
 # Variables
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE="/home/frap129/android/kernel/aarch64-linux-android-6.x/bin/aarch64-linux-android-"
+export CROSS_COMPILE="/home/frap129/android/kernel/aarch64-linux-android-6.x-lto2/bin/aarch64-linux-android-"
 THREAD=-j$(bc <<< $(grep -c ^processor /proc/cpuinfo)+2)
 DEFCONFIG="angler_defconfig"
 KROOT="$(pwd)"
@@ -30,7 +30,7 @@ function clean_all {
 function make_kernel {
 		clear
 		make $DEFCONFIG
-		if ! make $THREAD; then exit 1; fi;
+		if ! make $THREAD CONFIG_LTO=y; then exit 1; fi;
 		cp -vr $IMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
 }
 

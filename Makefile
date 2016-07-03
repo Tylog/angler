@@ -323,7 +323,7 @@ $(srctree)/scripts/Kbuild.include: ;
 include $(srctree)/scripts/Kbuild.include
 
 # Set optimization flags for gcc
-FLAGS := -march=armv8-a+crypto -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -ffast-math -O3 -fgraphite -fgraphite-identity -floop-strip-mine -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-slp-vectorize -fvect-cost-model -fsingle-precision-constant -fpredictive-commoning -Wno-maybe-uninitialized
+FLAGS := -march=armv8-a+crypto -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -ffast-math -O3 -fgraphite -fgraphite-identity -floop-strip-mine -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-slp-vectorize -fvect-cost-model -fsingle-precision-constant -fpredictive-commoning -Wno-maybe-uninitialized -fuse-linker-plugin
 
 # Make variables (CC, etc...)
 
@@ -332,12 +332,8 @@ LD		= $(CROSS_COMPILE)ld -O3
 LDFINAL   	= $(LD)
 CC		= $(CROSS_COMPILE)gcc $(FLAGS)
 CPP		= $(CC) -E
-ifdef CONFIG_LTO_SLIM
 AR		= $(CROSS_COMPILE)gcc-ar
-else
-AR		= $(CROSS_COMPILE)ar
-endif
-NM		= $(CROSS_COMPILE)nm
+NM		= $(CROSS_COMPILE)gcc-nm
 STRIP		= $(CROSS_COMPILE)strip
 OBJCOPY		= $(CROSS_COMPILE)objcopy
 OBJDUMP		= $(CROSS_COMPILE)objdump
